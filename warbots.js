@@ -1,4 +1,4 @@
-import * as wasm from './warbots_bg.wasm';
+import * as wasm from '/warbots_bg.wasm';
 
 const heap = new Array(32);
 
