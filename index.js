@@ -1,5 +1,5 @@
 import "/canvas.css"
-import { Config, start, player_fire } from "warbots";
+import { Config, start, player_fire } from "/warbots.js";
 
 const config = Config.new();
 const canvas = document.getElementById("warbots-canvas");
