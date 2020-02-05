@@ -16,9 +16,9 @@
       <canvas id="warbots-canvas"></canvas>
     </div>
 		<script type=module>
-			import { default as init } from './pkg/warbots.js';
+			import { default as init } from './warbots.js';
 			delete WebAssembly.instantiateStreaming;
-			init('pkg/warbots_bg.wasm');
+			init('./warbots_bg.wasm');
 		</script>
   </body>
 </html>
