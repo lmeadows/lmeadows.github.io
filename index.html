@@ -15,7 +15,10 @@
     <div>
       <canvas id="warbots-canvas"></canvas>
     </div>
-    <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
-    <script src="/bootstrap.js"></script>
+		<script type=module>
+			import { default as init } from './pkg/warbots.js';
+			delete WebAssembly.instantiateStreaming;
+			init('pkg/warbots_bg.wasm');
+		</script>
   </body>
 </html>
