@@ -1,5 +1,3 @@
-import * as wasm from './warbots_bg.wasm';
-
 const lAudioContext = (typeof AudioContext !== 'undefined' ? AudioContext : webkitAudioContext);
 
 const heap = new Array(32);
