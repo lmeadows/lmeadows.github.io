@@ -1,4 +1,6 @@
-import * as wasm from '/warbots_bg.wasm';
+import * as wasm from './warbots_bg.wasm';
+
+const lAudioContext = (typeof AudioContext !== 'undefined' ? AudioContext : webkitAudioContext);
 
 const heap = new Array(32);
 
@@ -179,7 +181,7 @@ function __wbg_adapter_18(arg0, arg1, arg2) {
 }
 
 function __wbg_adapter_21(arg0, arg1, arg2) {
-    wasm._dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h072b7017afb2afcd(arg0, arg1, addHeapObject(arg2));
+    wasm._dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__hff29b2d37dc9f6f5(arg0, arg1, addHeapObject(arg2));
 }
 
 /**
@@ -195,12 +197,24 @@ function _assertClass(instance, klass) {
     return instance.ptr;
 }
 
-function isLikeNone(x) {
-    return x === undefined || x === null;
+let cachegetFloat32Memory0 = null;
+function getFloat32Memory0() {
+    if (cachegetFloat32Memory0 === null || cachegetFloat32Memory0.buffer !== wasm.memory.buffer) {
+        cachegetFloat32Memory0 = new Float32Array(wasm.memory.buffer);
+    }
+    return cachegetFloat32Memory0;
+}
+
+function getArrayF32FromWasm0(ptr, len) {
+    return getFloat32Memory0().subarray(ptr / 4, ptr / 4 + len);
 }
 
 function handleError(e) {
     wasm.__wbindgen_exn_store(addHeapObject(e));
+}
+
+function isLikeNone(x) {
+    return x === undefined || x === null;
 }
 
 function getArrayU8FromWasm0(ptr, len) {
@@ -344,58 +358,6 @@ export class Point {
 }
 /**
 */
-export class Projectile {
-
-    static __wrap(ptr) {
-        const obj = Object.create(Projectile.prototype);
-        obj.ptr = ptr;
-
-        return obj;
-    }
-
-    free() {
-        const ptr = this.ptr;
-        this.ptr = 0;
-
-        wasm.__wbg_projectile_free(ptr);
-    }
-    /**
-    * @returns {Projectile}
-    */
-    static new() {
-        var ret = wasm.projectile_new();
-        return Projectile.__wrap(ret);
-    }
-    /**
-    * @returns {Point}
-    */
-    point() {
-        var ret = wasm.projectile_point(this.ptr);
-        return Point.__wrap(ret);
-    }
-    /**
-    * @returns {string}
-    */
-    color_hex() {
-        try {
-            wasm.projectile_color_hex(8, this.ptr);
-            var r0 = getInt32Memory0()[8 / 4 + 0];
-            var r1 = getInt32Memory0()[8 / 4 + 1];
-            return getStringFromWasm0(r0, r1);
-        } finally {
-            wasm.__wbindgen_free(r0, r1);
-        }
-    }
-    /**
-    * @param {number} power
-    * @param {number} angle
-    */
-    fire(power, angle) {
-        wasm.projectile_fire(this.ptr, power, angle);
-    }
-}
-/**
-*/
 export class Tank {
 
     static __wrap(ptr) {
@@ -484,10 +446,6 @@ export const __wbindgen_string_new = function(arg0, arg1) {
     return addHeapObject(ret);
 };
 
-export const __wbg_log_88e27b1e444831b7 = function(arg0, arg1) {
-    console.log(getStringFromWasm0(arg0, arg1));
-};
-
 export const __wbindgen_cb_forget = function(arg0) {
     takeObject(arg0);
 };
@@ -505,6 +463,81 @@ export const __wbindgen_cb_drop = function(arg0) {
 export const __widl_instanceof_Window = function(arg0) {
     var ret = getObject(arg0) instanceof Window;
     return ret;
+};
+
+export const __widl_f_copy_to_channel_AudioBuffer = function(arg0, arg1, arg2, arg3) {
+    try {
+        getObject(arg0).copyToChannel(getArrayF32FromWasm0(arg1, arg2), arg3);
+    } catch (e) {
+        handleError(e)
+    }
+};
+
+export const __widl_f_start_AudioBufferSourceNode = function(arg0) {
+    try {
+        getObject(arg0).start();
+    } catch (e) {
+        handleError(e)
+    }
+};
+
+export const __widl_f_set_buffer_AudioBufferSourceNode = function(arg0, arg1) {
+    getObject(arg0).buffer = getObject(arg1);
+};
+
+export const __widl_f_new_AudioContext = function() {
+    try {
+        var ret = new lAudioContext();
+        return addHeapObject(ret);
+    } catch (e) {
+        handleError(e)
+    }
+};
+
+export const __widl_f_create_buffer_AudioContext = function(arg0, arg1, arg2, arg3) {
+    try {
+        var ret = getObject(arg0).createBuffer(arg1 >>> 0, arg2 >>> 0, arg3);
+        return addHeapObject(ret);
+    } catch (e) {
+        handleError(e)
+    }
+};
+
+export const __widl_f_create_buffer_source_AudioContext = function(arg0) {
+    try {
+        var ret = getObject(arg0).createBufferSource();
+        return addHeapObject(ret);
+    } catch (e) {
+        handleError(e)
+    }
+};
+
+export const __widl_f_resume_AudioContext = function(arg0) {
+    try {
+        var ret = getObject(arg0).resume();
+        return addHeapObject(ret);
+    } catch (e) {
+        handleError(e)
+    }
+};
+
+export const __widl_f_destination_AudioContext = function(arg0) {
+    var ret = getObject(arg0).destination;
+    return addHeapObject(ret);
+};
+
+export const __widl_f_sample_rate_AudioContext = function(arg0) {
+    var ret = getObject(arg0).sampleRate;
+    return ret;
+};
+
+export const __widl_f_connect_with_audio_node_AudioNode = function(arg0, arg1) {
+    try {
+        var ret = getObject(arg0).connect(getObject(arg1));
+        return addHeapObject(ret);
+    } catch (e) {
+        handleError(e)
+    }
 };
 
 export const __widl_instanceof_CanvasRenderingContext2D = function(arg0) {
@@ -526,6 +559,10 @@ export const __widl_f_set_stroke_style_CanvasRenderingContext2D = function(arg0,
 
 export const __widl_f_set_fill_style_CanvasRenderingContext2D = function(arg0, arg1) {
     getObject(arg0).fillStyle = getObject(arg1);
+};
+
+export const __widl_f_set_line_width_CanvasRenderingContext2D = function(arg0, arg1) {
+    getObject(arg0).lineWidth = arg1;
 };
 
 export const __widl_f_line_to_CanvasRenderingContext2D = function(arg0, arg1, arg2) {
@@ -686,7 +723,7 @@ export const __wbindgen_throw = function(arg0, arg1) {
     throw new Error(getStringFromWasm0(arg0, arg1));
 };
 
-export const __wbindgen_closure_wrapper207 = function(arg0, arg1, arg2) {
+export const __wbindgen_closure_wrapper193 = function(arg0, arg1, arg2) {
 
     const state = { a: arg0, b: arg1, cnt: 1 };
     const real = (arg0) => {
@@ -696,7 +733,7 @@ export const __wbindgen_closure_wrapper207 = function(arg0, arg1, arg2) {
         try {
             return __wbg_adapter_18(a, state.b, arg0);
         } finally {
-            if (--state.cnt === 0) wasm.__wbindgen_export_2.get(30)(a, state.b);
+            if (--state.cnt === 0) wasm.__wbindgen_export_2.get(24)(a, state.b);
             else state.a = a;
         }
     }
@@ -706,7 +743,7 @@ export const __wbindgen_closure_wrapper207 = function(arg0, arg1, arg2) {
     return addHeapObject(ret);
 };
 
-export const __wbindgen_closure_wrapper209 = function(arg0, arg1, arg2) {
+export const __wbindgen_closure_wrapper195 = function(arg0, arg1, arg2) {
 
     const state = { a: arg0, b: arg1, cnt: 1 };
     const real = (arg0) => {
@@ -716,7 +753,7 @@ export const __wbindgen_closure_wrapper209 = function(arg0, arg1, arg2) {
         try {
             return __wbg_adapter_21(a, state.b, arg0);
         } finally {
-            if (--state.cnt === 0) wasm.__wbindgen_export_2.get(32)(a, state.b);
+            if (--state.cnt === 0) wasm.__wbindgen_export_2.get(26)(a, state.b);
             else state.a = a;
         }
     }
